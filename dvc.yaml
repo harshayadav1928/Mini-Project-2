@@ -1,0 +1,17 @@
+stages:
+  generate_data:
+    cmd: python -m src.data_generation
+    deps:
+      - src/data_generation.py
+      - data/sample_customers.csv
+    outs:
+      - data/mlopsflow.db
+  train:
+    cmd: python -m src.train
+    deps:
+      - src/train.py
+      - src/preprocessing.py
+      - data/mlopsflow.db
+    outs:
+      - models/churn_model.joblib
+      - models/metrics.json
